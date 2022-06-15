@@ -23,7 +23,6 @@ const Upper = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: 70%;
     width: 75%;
     margin: auto;
 `;
@@ -36,4 +35,9 @@ const P = styled.p`
     font-size: 14px;
 `;
 
-export { Div, Card, Upper, P };
+const Error = styled.p`
+    color: red;
+    font-size: 12px;
+`;
+
+export { Div, Card, Upper, P, Error };

@@ -1,0 +1,11 @@
+.main {
+    background-image: url("../../public/assets/figure.png");
+    background-size: 45% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 85vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}

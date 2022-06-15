@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Header } from "./components/Header";
+import { List } from "./components/List";
 import { Form } from "./components/Form";
 import "../../components/global.css";
 import { ListStyled, MainTitle, SubTitle } from "./home.styled";

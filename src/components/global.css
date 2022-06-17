@@ -1,11 +1,18 @@
 .main {
     background-image: url("../../public/assets/figure.png");
-    background-size: 45% 100%;
+    background-size: auto 85%;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center bottom;
     height: 85vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    flex-direction: column;
 }
+
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+    .main {
+        background-size: auto 65%;
+    }
+  }

@@ -2,19 +2,16 @@ import styled from "styled-components";
 const Div = styled.div`
     flex: 1;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: cenetr;
     width: 100%;
     height: 100%;
 `;
 const Card = styled.div`
     background-color: white;
-    height: 32%;
-    width: 50%;
-    padding: 0px 10px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: column;
+    height: fit-content;
+    padding: 3rem 1rem;
+    display: -ms-flexbox;
     justify-content: center;
     align-items: center;
 `;
@@ -23,14 +20,14 @@ const Upper = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 75%;
+    width: 85%;
     margin: auto;
 `;
 
 const P = styled.p`
     color: black;
     opacity: 0.5;
-    margin-top: 20px;
+    margin-top:2.5rem;
     text-align: center;
     font-size: 14px;
 `;

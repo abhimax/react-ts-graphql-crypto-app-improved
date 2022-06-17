@@ -1,23 +1,35 @@
 import styled from "styled-components";
 
-const ListStyled = styled.div`
-    flex: 1;
+const TopWrapper = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: cenetr;
     width: 100%;
-    height: 100%;
+    @media screen and (min-width: 0px) and (max-width: 600px) {
+        flex-direction: column;
+        align-items: center;
+    }
 `;
 const MainTitle = styled.div`
-    color: #fcfbfc;
-    font-size: 45px;
+    font-family: ${(props) => props.theme.fontsFamily?.primary};
+    font-size: ${(props) => props.theme.fontSize?.xLarge};
+    color: ${(props) => props.theme.color?.textLight};
+    line-height: 3rem;
+    @media screen and (min-width: 0px) and (max-width: 1024px) {
+            font-size: ${(props) => props.theme.fontSize?.large};
+      }
 `;
 const SubTitle = styled.div`
-    color: #fcfbfc;
+    font-family: ${(props) => props.theme.fontsFamily?.primary};
+    font-size: ${(props) => props.theme.fontSize?.medium};
+    color: ${(props) => props.theme.color?.textLight};
+    line-height: 1.8rem;
     opacity: 0.5;
-    font-size: 20px;
     font-weight: 500;
-    margin-top: 10px;
+    margin-top: 1rem;
 `;
-export { ListStyled, MainTitle, SubTitle };
+
+const TitleWrapper = styled.div`
+    display: flex;
+    height: fit-content;
+    flex-direction: column;
+`;
+export { TopWrapper, MainTitle, SubTitle, TitleWrapper };

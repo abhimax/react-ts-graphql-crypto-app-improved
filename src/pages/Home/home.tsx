@@ -3,7 +3,7 @@ import { Header } from "./components/Header";
 import { List } from "./components/List";
 import { Form } from "./components/Form";
 import "../../components/global.css";
-import { ListStyled, MainTitle, SubTitle } from "./home.styled";
+import { TopWrapper, MainTitle, SubTitle, TitleWrapper } from "./home.styled";
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -22,24 +22,22 @@ const Home = () => {
         <>
             <Header />
             <div className="main">
-                <ListStyled>
-                    <div>
-                        <MainTitle>
-                            Now you can track <br />
-                            all your cryptos here!
-                        </MainTitle>
-                    </div>
-                    <div>
-                        <SubTitle>
-                            Just enter the <br />
-                            cryptocurrency on the <br />
-                            form to the right.
-                        </SubTitle>
-                    </div>
-                    <List data={data} setData={setData} />
-                </ListStyled>
-                {/* Form */}
-                <Form setData={setData} />
+                <TopWrapper>
+                    <TitleWrapper>
+                    <MainTitle>
+                        Now you can track <br />
+                        all your cryptos here!
+                    </MainTitle>
+                    <SubTitle>
+                        Just enter the <br />
+                        cryptocurrency on the <br />
+                        form to the right.
+                    </SubTitle>
+                    </TitleWrapper>
+                    <Form setData={setData} />
+                </TopWrapper>
+
+                <List data={data} setData={setData} />
             </div>
         </>
     );

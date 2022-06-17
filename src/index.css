@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
 * {
     margin: 0;
 }
@@ -10,8 +10,20 @@ body {
     background-repeat: no-repeat;
     background-position: right;
     margin: 0px 200px;
-    font-family: "Poppins", sans-serif;
+    font-family: "Roboto", sans-serif;
+
 }
 ::-webkit-scrollbar {
     display: none; /* Safari and Chrome */
 }
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+    body {
+        margin: 0px 50px;
+    }
+  }
+
+  @media screen and (min-width: 0px) and (max-width: 600px) {
+    body {
+        margin: 0px 10px;
+    }
+  }

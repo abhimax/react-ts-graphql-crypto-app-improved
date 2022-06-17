@@ -2,10 +2,14 @@ import styled from "styled-components";
 const Div = styled.div`
     flex: 1;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: cenetr;
     width: 100%;
     height: 100%;
+    @media screen and (min-width: 0px) and (max-width: 600px) {
+        justify-content: center;
+        margin-top: 2rem;
+    }
 `;
 const Card = styled.div`
     background-color: white;

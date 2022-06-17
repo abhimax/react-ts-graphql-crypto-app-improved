@@ -10,16 +10,22 @@ const ListItem = styled.div`
     margin-top: 30px;
     overflow: auto;
     margin-bottom: 20px;
+    @media screen and (min-width: 0px) and (max-width: 600px) {
+        align-items: center;
+    }
 `;
 
 const Item = styled.div`
     display: flex;
     height: 18%;
-    width: 50%;
+    width: 30%;
     justify-content: center;
     align-items: center;
     border-bottom: 1px white solid;
     padding: 15px 10px;
+    @media screen and (min-width: 0px) and (max-width: 600px) {
+        width: 66%;
+    }
 `;
 
 const ItemChileOne = styled.div`
@@ -48,15 +54,17 @@ const InnerList = styled.div`
     align-items: flex-start;
 `;
 const First = styled.div`
-    color: #fcfbfc;
-    margin-bottom: 1px;
-    font-size: 20px;
-    text-transform: uppercase;
+    font-family: ${(props) => props.theme.fontsFamily?.primary};
+    font-size: ${(props) => props.theme.fontSize?.small};
+    color: ${(props) => props.theme.color?.textLight};
+    line-height: 2rem;
 `;
 const Second = styled.div`
-    color: #fcfbfc;
+    font-family: ${(props) => props.theme.fontsFamily?.primary};
+    font-size: ${(props) => props.theme.fontSize?.xsmall};
+    color: ${(props) => props.theme.color?.textLight};
+    line-height: 2rem;
     opacity: 0.5;
-    font-size: 12px;
 `;
 
 export { ListItem, Item, ItemChileOne, ItemChileTwo, ItemChileThree, InnerList, First, Second };

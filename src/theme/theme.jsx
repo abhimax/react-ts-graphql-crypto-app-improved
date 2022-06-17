@@ -16,9 +16,10 @@ const theme = {
     primary: "Roboto, sans-serif",
   },
   fontSize: {
-  xSmall: "0.75rem",  
-  small: "1rem",
-  medium: "1.25rem",
+  xxSmall: "0.75rem",
+  xSmall: "1rem",  
+  small: "1.3rem",
+  medium: "1.5rem",
   large: "2.4rem",
   xLarge: "2.813rem"
 }

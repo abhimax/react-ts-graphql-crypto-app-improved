@@ -21,7 +21,7 @@ const SubTitle = styled.div`
     font-family: ${(props) => props.theme.fontsFamily?.primary};
     font-size: ${(props) => props.theme.fontSize?.medium};
     color: ${(props) => props.theme.color?.textLight};
-    line-height: 1.8rem;
+    line-height: 2rem;
     opacity: 0.5;
     font-weight: 500;
     margin-top: 1rem;

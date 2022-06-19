@@ -2,61 +2,55 @@ import { Div, Card, Upper, P, Error } from "./form.styled";
 import { Button } from "../../../../components/button";
 import { Input } from "../../../../components/input";
 import { useEffect, useState } from "react";
+import { useLazyQuery, gql } from "@apollo/client";
+
+const CRYPTO_QUERY = gql`
+    query price($name: String) {
+        markets(filter:{ baseSymbol: {_eq:$name} quoteSymbol: {_eq:"EUR"}}) {
+            marketSymbol
+            ticker {
+                lastPrice
+            }
+        }
+    }
+`;
+
 const List = (props: any) => {
     const [name, setName] = useState("");
     const [cryptoName, setCryptoName] = useState("");
+    const [fetchData, { loading, data }] = useLazyQuery(CRYPTO_QUERY, {
+        variables: { name }
+    });
 
-    const fetchData = (param: string) => {
-        fetch("https://api.blocktap.io/graphql", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                query: `
-                    query price {
-                        markets(filter: { baseSymbol: { _eq: "${param.toUpperCase()}" }, quoteSymbol: { _eq: "EUR" } }) {
-                            marketSymbol
-                            ticker {
-                                lastPrice
-                            }
-                        }
-                    }
-                `,
-            }),
-        })
-            .then((res) => res.json())
-            .then((result) => {
-                const data = localStorage.getItem("data");
-                let obj: any = {};
-
-                if (result?.data?.markets?.length > 0 && result?.data?.markets[0]?.ticker?.lastPrice) {
-                    obj.id = Date.now();
-                    obj.name = name;
-                    obj.price = parseFloat(result?.data?.markets[0]?.ticker?.lastPrice).toFixed(2);
-                    
-                    if (data) {
-                        const crypto = JSON.parse(data);
-                        crypto.push(obj);
-                        props.setData(crypto);
-                        localStorage.setItem("data", JSON.stringify(crypto));
-                    } else {
-                        const crypto = [obj];
-                        props.setData(crypto);
-                        localStorage.setItem("data", JSON.stringify(crypto));
-                    }
+    useEffect(() => {
+        if(data) {
+            const localStorageData = localStorage.getItem("data");
+            let obj: any = {};
+    
+            if (data?.markets?.length > 0 && data?.markets[0]?.ticker?.lastPrice) {
+                obj.id = Date.now();
+                obj.name = name;
+                obj.price = parseFloat(data?.markets[0]?.ticker?.lastPrice).toFixed(2) ?? "-";
+                
+                if (localStorageData) {
+                    const crypto = JSON.parse(localStorageData);
+                    crypto.push(obj);
+                    props.setData(crypto);
+                    localStorage.setItem("data", JSON.stringify(crypto));
                 } else {
-                    setCryptoName(param)
+                    const crypto = [obj];
+                    props.setData(crypto);
+                    localStorage.setItem("data", JSON.stringify(crypto));
                 }
-
-            });
-    };
-
-    useEffect(() => {}, []);
-
+            } else {
+                setCryptoName(name)
+            }
+            setName("");
+        }
+    }, [data])
+    
     const addCrypto = () => {
-        fetchData(name);
-        setName("");
+        fetchData({ variables: { name } })
         setCryptoName("")
     };
     return (

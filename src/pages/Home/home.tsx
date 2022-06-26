@@ -4,6 +4,7 @@ import { List } from "./components/List";
 import { Form } from "./components/Form";
 import "../../components/global.css";
 import { TopWrapper, MainTitle, SubTitle, TitleWrapper } from "./home.styled";
+import { Footer } from "./components/Footer";
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -39,6 +40,7 @@ const Home = () => {
 
                 <List data={data} setData={setData} />
             </div>
+            <Footer/>
         </>
     );
 };

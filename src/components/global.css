@@ -3,11 +3,12 @@
     background-size: auto 85%;
     background-repeat: no-repeat;
     background-position: center bottom;
-    height: 85vh;
+    height: 70vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 80%;
+    margin: 0px 10%;
     flex-direction: column;
 }
 

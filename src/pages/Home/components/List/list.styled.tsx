@@ -28,15 +28,15 @@ const Item = styled.div`
     }
 `;
 
-const ItemChileOne = styled.div`
+const ItemChildOne = styled.div`
     flex: 1;
 `;
 
-const ItemChileTwo = styled.div`
+const ItemChildTwo = styled.div`
     flex: 2;
 `;
 
-const ItemChileThree = styled.div`
+const ItemChildThree = styled.div`
     flex: 1;
     height: 100%;
     width: 100%;
@@ -67,4 +67,4 @@ const Second = styled.div`
     opacity: 0.5;
 `;
 
-export { ListItem, Item, ItemChileOne, ItemChileTwo, ItemChileThree, InnerList, First, Second };
+export { ListItem, Item, ItemChildOne, ItemChildTwo, ItemChildThree, InnerList, First, Second };

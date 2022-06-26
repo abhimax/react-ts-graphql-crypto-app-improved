@@ -9,21 +9,9 @@ body {
     background-size: 50% 100%;
     background-repeat: no-repeat;
     background-position: right;
-    margin: 0px 200px;
     font-family: "Roboto", sans-serif;
-
 }
 ::-webkit-scrollbar {
     display: none; /* Safari and Chrome */
 }
-@media screen and (min-width: 0px) and (max-width: 1024px) {
-    body {
-        margin: 0px 50px;
-    }
-  }
 
-  @media screen and (min-width: 0px) and (max-width: 600px) {
-    body {
-        margin: 0px 10px;
-    }
-  }

@@ -1,4 +1,4 @@
-import { ListItem, Item, ItemChileOne, ItemChileTwo, ItemChileThree, InnerList, First, Second } from "./list.styled";
+import { ListItem, Item, ItemChildOne, ItemChildTwo, ItemChildThree, InnerList, First, Second } from "./list.styled";
 
 const List = (props: any) => {
     const handleDelete = (id: number) => {
@@ -11,17 +11,17 @@ const List = (props: any) => {
             {props.data.map((item: any, idx: any) => {
                 return (
                     <Item key={idx}>
-                        <ItemChileOne>
+                        <ItemChildOne>
                             <img src="./assets/icon.svg" alt="trophy" height="60px" />
-                        </ItemChileOne>
-                        <ItemChileTwo>
+                        </ItemChildOne>
+                        <ItemChildTwo>
                             <InnerList>
                                 <First>{item.name}</First>
                                 <Second>{item.price !== "-" ? `${item.price} €` : "-"} </Second>
                             </InnerList>
-                        </ItemChileTwo>
+                        </ItemChildTwo>
 
-                        <ItemChileThree>
+                        <ItemChildThree>
                             <img
                                 src="./assets/close.png"
                                 alt="close"
@@ -29,7 +29,7 @@ const List = (props: any) => {
                                 width="10px"
                                 onClick={() => handleDelete(item.id)}
                             />
-                        </ItemChileThree>
+                        </ItemChildThree>
                     </Item>
                 );
             })}

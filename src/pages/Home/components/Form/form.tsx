@@ -3,6 +3,9 @@ import { Button } from "../../../../components/button";
 import { Input } from "../../../../components/input";
 import { useEffect, useState } from "react";
 import { useLazyQuery, gql } from "@apollo/client";
+interface IState{
+    name: string;
+}
 
 const CRYPTO_QUERY = gql`
     query price($name: String) {
@@ -16,7 +19,12 @@ const CRYPTO_QUERY = gql`
 `;
 
 const List = (props: any) => {
-    const [name, setName] = useState("");
+    const [state, setState] = useState<IState>({
+        name : ""
+    });
+
+    let { name } = state;
+
     const [cryptoName, setCryptoName] = useState("");
     const [fetchData, { loading, error, data }] = useLazyQuery(CRYPTO_QUERY, {
         variables: { name }
@@ -45,7 +53,9 @@ const List = (props: any) => {
             } else {
                 setCryptoName(name)
             }
-            setName("");
+            setState({
+                name : ""
+            });
         }
     }, [data])
     
@@ -55,14 +65,15 @@ const List = (props: any) => {
     };
 
     let updateInput = (e : React.ChangeEvent<HTMLInputElement>):void =>{
-        setName(e.target.value);
+        setState({ name: e.target.value});
     }
+    
 
 
     if(loading) return <Loader>loading...</Loader>
 
     if(error) return <Error>Some error happen</Error>
-
+    
     return (
         <Div>
             <Card>

@@ -3,8 +3,9 @@ import { Button } from "../../../../components/button";
 import { Input } from "../../../../components/input";
 import { useEffect, useState } from "react";
 import { useLazyQuery, gql } from "@apollo/client";
-interface IState{
+interface IState {
     name: string;
+    cryptoName: string;
 }
 
 const CRYPTO_QUERY = gql`
@@ -20,26 +21,26 @@ const CRYPTO_QUERY = gql`
 
 const List = (props: any) => {
     const [state, setState] = useState<IState>({
-        name : ""
+        name: "",
+        cryptoName: ""
     });
 
-    let { name } = state;
+    let { name, cryptoName } = state;
 
-    const [cryptoName, setCryptoName] = useState("");
     const [fetchData, { loading, error, data }] = useLazyQuery(CRYPTO_QUERY, {
         variables: { name }
     });
 
     useEffect(() => {
-        if(data) {
+        if (data) {
             const localStorageData = localStorage.getItem("data");
             const obj: any = {};
-    
+
             if (data?.markets?.length > 0 && data?.markets[0]?.ticker?.lastPrice) {
                 obj.id = data.markets[0].marketSymbol;
                 obj.name = name;
                 obj.price = parseFloat(data?.markets[0]?.ticker?.lastPrice).toFixed(2) ?? "-"
-                
+
                 if (localStorageData) {
                     const crypto = JSON.parse(localStorageData);
                     crypto.push(obj);
@@ -51,29 +52,34 @@ const List = (props: any) => {
                     localStorage.setItem("data", JSON.stringify(crypto));
                 }
             } else {
-                setCryptoName(name)
+                setState({
+                    ...state,
+                    cryptoName: ""
+                });
             }
             setState({
-                name : ""
+                ...state,
+                name: ""
             });
         }
     }, [data])
-    
-    const addCrypto = ():void => {
+
+    const addCrypto = (): void => {
         fetchData({ variables: { name } });
-        setCryptoName("");
+        setState({
+            ...state,
+            cryptoName: ""
+        });
     };
 
-    let updateInput = (e : React.ChangeEvent<HTMLInputElement>):void =>{
-        setState({ name: e.target.value});
+    let updateInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        setState({ ...state, name: e.target.value });
     }
-    
 
+    if (loading) return <Loader>loading...</Loader>
 
-    if(loading) return <Loader>loading...</Loader>
+    if (error) return <Error>Some error happen</Error>
 
-    if(error) return <Error>Some error happen</Error>
-    
     return (
         <Div>
             <Card>

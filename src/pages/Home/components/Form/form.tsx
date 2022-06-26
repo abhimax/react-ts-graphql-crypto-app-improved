@@ -1,4 +1,4 @@
-import { Div, Card, Upper, P, Error } from "./form.styled";
+import { Div, Card, Upper, P, Error, Loader } from "./form.styled";
 import { Button } from "../../../../components/button";
 import { Input } from "../../../../components/input";
 import { useEffect, useState } from "react";
@@ -18,19 +18,19 @@ const CRYPTO_QUERY = gql`
 const List = (props: any) => {
     const [name, setName] = useState("");
     const [cryptoName, setCryptoName] = useState("");
-    const [fetchData, { loading, data }] = useLazyQuery(CRYPTO_QUERY, {
+    const [fetchData, { loading, error, data }] = useLazyQuery(CRYPTO_QUERY, {
         variables: { name }
     });
 
     useEffect(() => {
         if(data) {
             const localStorageData = localStorage.getItem("data");
-            let obj: any = {};
+            const obj: any = {};
     
             if (data?.markets?.length > 0 && data?.markets[0]?.ticker?.lastPrice) {
-                obj.id = Date.now();
+                obj.id = data.markets[0].marketSymbol;
                 obj.name = name;
-                obj.price = parseFloat(data?.markets[0]?.ticker?.lastPrice).toFixed(2) ?? "-";
+                obj.price = parseFloat(data?.markets[0]?.ticker?.lastPrice).toFixed(2) ?? "-"
                 
                 if (localStorageData) {
                     const crypto = JSON.parse(localStorageData);
@@ -49,17 +49,27 @@ const List = (props: any) => {
         }
     }, [data])
     
-    const addCrypto = () => {
-        fetchData({ variables: { name } })
-        setCryptoName("")
+    const addCrypto = ():void => {
+        fetchData({ variables: { name } });
+        setCryptoName("");
     };
+
+    let updateInput = (e : React.ChangeEvent<HTMLInputElement>):void =>{
+        setName(e.target.value);
+    }
+
+
+    if(loading) return <Loader>loading...</Loader>
+
+    if(error) return <Error>Some error happen</Error>
+
     return (
         <Div>
             <Card>
                 <Upper>
                     <Input
                         placeholder="Cryptocurrency Code"
-                        onChange={(e: any) => setName(e.target.value)}
+                        onChange={updateInput}
                         value={name}
                     />
                     <Error>{cryptoName ? `${cryptoName} is not available.` : ''}</Error>

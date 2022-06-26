@@ -41,4 +41,9 @@ const Error = styled.p`
     font-size: 12px;
 `;
 
-export { Div, Card, Upper, P, Error };
+const Loader = styled.p`
+color: ${(props) => props.theme.color?.white};
+font-size: ${(props) => props.theme.fontSize?.small};
+`;
+
+export { Div, Card, Upper, P, Error, Loader };

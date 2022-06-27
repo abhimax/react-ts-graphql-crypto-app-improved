@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useLazyQuery, gql } from "@apollo/client";
 interface IState {
     name: string;
-    cryptoName: string;
 }
 
 const CRYPTO_QUERY = gql`
@@ -21,11 +20,13 @@ const CRYPTO_QUERY = gql`
 
 const List = (props: any) => {
     const [state, setState] = useState<IState>({
-        name: "",
-        cryptoName: ""
+        name: ""
     });
+    const [cryptoName, setCryptoName] = useState("");
+    const [dupCryptoName, setDupCryptoName] = useState("");
+    
 
-    let { name, cryptoName } = state;
+    const { name } = state;
 
     const [fetchData, { loading, error, data }] = useLazyQuery(CRYPTO_QUERY, {
         variables: { name }
@@ -43,10 +44,7 @@ const List = (props: any) => {
                 if (localStorageData) {
                     const crypto = JSON.parse(localStorageData);
                     if (crypto.some((obj: any) => obj.name === name)) {
-                        setState({
-                            ...state,
-                            cryptoName: ""
-                        });
+                        setDupCryptoName(name);
                     } else {
                         crypto.push(obj);
                         props.setData(crypto);
@@ -59,10 +57,7 @@ const List = (props: any) => {
                     localStorage.setItem("data", JSON.stringify(crypto));
                 }
             } else {
-                setState({
-                    ...state,
-                    cryptoName: name
-                });
+                setCryptoName(name);
             }
             setState({
                 ...state,
@@ -73,10 +68,8 @@ const List = (props: any) => {
 
     const addCrypto = (): void => {
         fetchData({ variables: { name } });
-        setState({
-            ...state,
-            cryptoName: ""
-        });
+        setCryptoName("");
+        setDupCryptoName("");
     };
 
     let updateInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -96,7 +89,10 @@ const List = (props: any) => {
                         onChange={updateInput}
                         value={name}
                     />
-                    <Error>{cryptoName ? `${cryptoName} is not available.` : ''}</Error>
+                    <Error>
+                    { cryptoName ? `${cryptoName} is not available.` : '' }
+                    {dupCryptoName ? `${dupCryptoName} is already exist!` : ''}
+                    </Error>
                     <Button onClick={addCrypto} disabled={!name} label={"Add"} />
                     <P>Use of this service is subject to terms and conditions.</P>
                 </Upper>

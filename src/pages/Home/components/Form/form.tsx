@@ -40,12 +40,19 @@ const List = (props: any) => {
                 obj.id = data.markets[0].marketSymbol;
                 obj.name = name;
                 obj.price = parseFloat(data?.markets[0]?.ticker?.lastPrice).toFixed(2) ?? "-"
-
                 if (localStorageData) {
                     const crypto = JSON.parse(localStorageData);
-                    crypto.push(obj);
-                    props.setData(crypto);
-                    localStorage.setItem("data", JSON.stringify(crypto));
+                    if (crypto.some((obj: any) => obj.name === name)) {
+                        setState({
+                            ...state,
+                            cryptoName: ""
+                        });
+                    } else {
+                        crypto.push(obj);
+                        props.setData(crypto);
+                        localStorage.setItem("data", JSON.stringify(crypto));
+                    }
+
                 } else {
                     const crypto = [obj];
                     props.setData(crypto);
@@ -54,7 +61,7 @@ const List = (props: any) => {
             } else {
                 setState({
                     ...state,
-                    cryptoName: ""
+                    cryptoName: name
                 });
             }
             setState({
@@ -73,7 +80,7 @@ const List = (props: any) => {
     };
 
     let updateInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        setState({ ...state, name: e.target.value });
+        setState({ ...state, name: e.target.value.toLocaleUpperCase() });
     }
 
     if (loading) return <Loader>loading...</Loader>

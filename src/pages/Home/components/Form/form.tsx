@@ -4,6 +4,8 @@ import { Input } from "../../../../components/input";
 import { useEffect, useState } from "react";
 import { useLazyQuery, gql } from "@apollo/client";
 import { CList } from "../../../../inteface";
+import { cryptoExsits, cryptoNotFound } from '../../../../utils/message';
+
 interface IState {
     name: string;
 }
@@ -97,10 +99,8 @@ const List = (props: Props) => {
                         value={name}
                     />
                     <Error>
-                        {cryptoName ? `${cryptoName} is not available.` : ""}
-                        {dupCryptoName
-                            ? `${dupCryptoName} is already exist!`
-                            : ""}
+                        {cryptoNotFound(cryptoName)}
+                        {cryptoExsits(dupCryptoName)}
                     </Error>
                     <Button
                         onClick={addCrypto}

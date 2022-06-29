@@ -4,10 +4,12 @@ import { Input } from "../../../../components/input";
 import { useEffect, useState } from "react";
 import { useLazyQuery, gql } from "@apollo/client";
 import { CList } from "../../../../interface";
-import { CryptoExists, CryptoNotFound } from '../../../../utils/message';
+import { CryptoExists, CryptoNotFound } from "../../../../utils/message";
 
 interface IState {
     name: string;
+    cryptoName: string;
+    dupCryptoName: string;
 }
 
 interface Props {
@@ -29,14 +31,12 @@ const CRYPTO_QUERY = gql`
 const List = (props: Props) => {
     const [state, setState] = useState<IState>({
         name: "",
+        cryptoName: "",
+        dupCryptoName: "",
     });
-    const [cryptoName, setCryptoName] = useState("");
-    const [dupCryptoName, setDupCryptoName] = useState("");
-
-    const { name } = state;
 
     const [fetchData, { loading, error, data }] = useLazyQuery(CRYPTO_QUERY, {
-        variables: { name },
+        variables: { name: state.name },
     });
 
     useEffect(() => {
@@ -46,15 +46,18 @@ const List = (props: Props) => {
 
             if (data?.markets?.[0]?.ticker?.lastPrice) {
                 obj.id = data.markets[0].marketSymbol;
-                obj.name = name;
+                obj.name = state.name;
                 obj.price =
                     parseFloat(data?.markets[0]?.ticker?.lastPrice).toFixed(
                         2
                     ) ?? "-";
                 if (localStorageData) {
                     const crypto = JSON.parse(localStorageData);
-                    if (crypto.some((obj: CList) => obj.name === name)) {
-                        setDupCryptoName(name);
+                    if (crypto.some((obj: CList) => obj.name === state.name)) {
+                        setState((curr) => ({
+                            ...state,
+                            dupCryptoName: curr.name,
+                        }));
                     } else {
                         crypto.push(obj);
                         props.setData(crypto);
@@ -66,19 +69,25 @@ const List = (props: Props) => {
                     localStorage.setItem("data", JSON.stringify(crypto));
                 }
             } else {
-                setCryptoName(name);
+                setState((curr) => ({
+                    ...curr,
+                    cryptoName: curr.name,
+                }));
             }
-            setState({
-                ...state,
+            setState((curr) => ({
+                ...curr,
                 name: "",
-            });
+            }));
         }
     }, [data]);
 
     const addCrypto = (): void => {
-        fetchData({ variables: { name } });
-        setCryptoName("");
-        setDupCryptoName("");
+        fetchData({ variables: { name: state.name } });
+        setState((curr) => ({
+            ...curr,
+            cryptoName: "",
+            dupCryptoName: "",
+        }));
     };
 
     let updateInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -96,15 +105,15 @@ const List = (props: Props) => {
                     <Input
                         placeholder="Cryptocurrency Code"
                         onChange={updateInput}
-                        value={name}
+                        value={state.name}
                     />
                     <Error>
-                        {CryptoNotFound(cryptoName)}
-                        {CryptoExists(dupCryptoName)}
+                        {CryptoNotFound(state.cryptoName)}
+                        {CryptoExists(state.dupCryptoName)}
                     </Error>
                     <Button
                         onClick={addCrypto}
-                        disabled={!name}
+                        disabled={!state.name}
                         label={"Add"}
                     />
                     <P>

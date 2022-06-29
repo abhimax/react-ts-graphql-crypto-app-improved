@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import { List } from "./components/List";
 import { Form } from "./components/Form";
@@ -6,20 +5,15 @@ import "../../components/global.css";
 import { TopWrapper, MainTitle, SubTitle, TitleWrapper } from "./home.styled";
 import { Footer } from "./components/Footer";
 import { CList } from "../../interface";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const Home = () => {
-    const [data, setData] = useState<CList[]>([]);
-    useEffect(() => {
-        let storageData = localStorage.getItem("data");
-        if (storageData) {
-            try {
-                setData(JSON.parse(storageData));
-            } catch (error) {
-                setData([]);
-            }
-        }
-    }, []);
+    const [data, setData] = useLocalStorage<CList[]>("data");
 
+    const handleDelete = (id: number | string) => {
+        let afterDelete = data.filter((item: CList) => item.id !== id);
+        setData(afterDelete);
+    };
     return (
         <>
             <Header />
@@ -39,7 +33,11 @@ const Home = () => {
                     <Form setData={setData} />
                 </TopWrapper>
 
-                <List data={data} setData={setData} />
+                <List
+                    data={data}
+                    setData={setData}
+                    handleDelete={handleDelete}
+                />
             </div>
             <Footer />
         </>

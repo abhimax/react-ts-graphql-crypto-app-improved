@@ -3,9 +3,11 @@ import { ThemeProvider } from "styled-components";
 import { HomePage } from "./pages";
 import { theme } from "./theme/theme";
 function App() {
-    return <ThemeProvider theme={theme}>
-        <HomePage />
-        </ThemeProvider>;
+    return (
+        <ThemeProvider theme={theme}>
+            <HomePage />
+        </ThemeProvider>
+    );
 }
 
 export default App;

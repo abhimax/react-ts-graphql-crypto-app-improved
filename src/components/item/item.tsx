@@ -15,7 +15,7 @@ interface Props {
     handleDelete: (id: string) => void;
 }
 
-const ItemComponent = ({ id, item, handleDelete }: Props) => {
+const ItemComponent = ({ item, handleDelete }: Props) => {
     return (
         <Item key={item.id}>
             <ItemChildOne>

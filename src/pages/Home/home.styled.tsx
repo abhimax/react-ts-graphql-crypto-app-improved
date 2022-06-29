@@ -14,8 +14,8 @@ const MainTitle = styled.div`
     color: ${(props) => props.theme.color?.textLight};
     line-height: 3rem;
     @media screen and (min-width: 0px) and (max-width: 1024px) {
-            font-size: ${(props) => props.theme.fontSize?.large};
-      }
+        font-size: ${(props) => props.theme.fontSize?.large};
+    }
 `;
 const SubTitle = styled.div`
     font-family: ${(props) => props.theme.fontsFamily?.primary};

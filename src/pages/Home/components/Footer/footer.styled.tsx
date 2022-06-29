@@ -15,10 +15,10 @@ const Footer = styled.footer`
 `;
 
 const P = styled.p`
-color: ${(props) => props.theme.color?.black};
-opacity: 0.5;
-text-align: center;
-font-size: ${(props) => props.theme.fontSize?.xxSmall};
+    color: ${(props) => props.theme.color?.black};
+    opacity: 0.5;
+    text-align: center;
+    font-size: ${(props) => props.theme.fontSize?.xxSmall};
 `;
 
 export { Footer, P };

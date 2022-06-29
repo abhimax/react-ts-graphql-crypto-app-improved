@@ -31,7 +31,7 @@ const Upper = styled.div`
 const P = styled.p`
     color: black;
     opacity: 0.5;
-    margin-top:2.5rem;
+    margin-top: 2.5rem;
     text-align: center;
     font-size: 14px;
 `;
@@ -42,8 +42,8 @@ const Error = styled.p`
 `;
 
 const Loader = styled.p`
-color: ${(props) => props.theme.color?.white};
-font-size: ${(props) => props.theme.fontSize?.small};
+    color: ${(props) => props.theme.color?.white};
+    font-size: ${(props) => props.theme.fontSize?.small};
 `;
 
 export { Div, Card, Upper, P, Error, Loader };

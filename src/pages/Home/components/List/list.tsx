@@ -4,13 +4,9 @@ import { Item } from "../../../../components/item";
 interface Props {
     data: CList[];
     setData: React.Dispatch<React.SetStateAction<CList[]>>;
+    handleDelete: (id: string) => void;
 }
 const List = (props: Props) => {
-    const handleDelete = (id: number | string) => {
-        let afterDelete = props.data.filter((item: CList) => item.id !== id);
-        props.setData(afterDelete);
-        localStorage.setItem("data", JSON.stringify(afterDelete));
-    };
     return (
         <ListItem>
             {props.data.map((item: CList) => {
@@ -19,7 +15,7 @@ const List = (props: Props) => {
                         key={item.id}
                         id={item.id}
                         item={item}
-                        handleDelete={handleDelete}
+                        handleDelete={props.handleDelete}
                     />
                 );
             })}

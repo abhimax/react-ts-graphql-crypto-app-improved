@@ -3,13 +3,19 @@ import { Button } from "../../../../components/button";
 import { Input } from "../../../../components/input";
 import { useEffect, useState } from "react";
 import { useLazyQuery, gql } from "@apollo/client";
+import { CList } from "../../../../inteface";
 interface IState {
     name: string;
 }
 
+interface Props {
+    setData: React.Dispatch<React.SetStateAction<CList[]>>;
+}
 const CRYPTO_QUERY = gql`
     query price($name: String) {
-        markets(filter:{ baseSymbol: {_eq:$name} quoteSymbol: {_eq:"EUR"}}) {
+        markets(
+            filter: { baseSymbol: { _eq: $name }, quoteSymbol: { _eq: "EUR" } }
+        ) {
             marketSymbol
             ticker {
                 lastPrice
@@ -18,39 +24,40 @@ const CRYPTO_QUERY = gql`
     }
 `;
 
-const List = (props: any) => {
+const List = (props: Props) => {
     const [state, setState] = useState<IState>({
-        name: ""
+        name: "",
     });
     const [cryptoName, setCryptoName] = useState("");
     const [dupCryptoName, setDupCryptoName] = useState("");
-    
 
     const { name } = state;
 
     const [fetchData, { loading, error, data }] = useLazyQuery(CRYPTO_QUERY, {
-        variables: { name }
+        variables: { name },
     });
 
     useEffect(() => {
         if (data) {
             const localStorageData = localStorage.getItem("data");
-            const obj: any = {};
+            const obj: CList = { id: "", name: "", price: "" };
 
-            if (data?.markets?.length > 0 && data?.markets[0]?.ticker?.lastPrice) {
+            if (data?.markets?.[0]?.ticker?.lastPrice) {
                 obj.id = data.markets[0].marketSymbol;
                 obj.name = name;
-                obj.price = parseFloat(data?.markets[0]?.ticker?.lastPrice).toFixed(2) ?? "-"
+                obj.price =
+                    parseFloat(data?.markets[0]?.ticker?.lastPrice).toFixed(
+                        2
+                    ) ?? "-";
                 if (localStorageData) {
                     const crypto = JSON.parse(localStorageData);
-                    if (crypto.some((obj: any) => obj.name === name)) {
+                    if (crypto.some((obj: CList) => obj.name === name)) {
                         setDupCryptoName(name);
                     } else {
                         crypto.push(obj);
                         props.setData(crypto);
                         localStorage.setItem("data", JSON.stringify(crypto));
                     }
-
                 } else {
                     const crypto = [obj];
                     props.setData(crypto);
@@ -61,10 +68,10 @@ const List = (props: any) => {
             }
             setState({
                 ...state,
-                name: ""
+                name: "",
             });
         }
-    }, [data])
+    }, [data]);
 
     const addCrypto = (): void => {
         fetchData({ variables: { name } });
@@ -74,11 +81,11 @@ const List = (props: any) => {
 
     let updateInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setState({ ...state, name: e.target.value.toLocaleUpperCase() });
-    }
+    };
 
-    if (loading) return <Loader>loading...</Loader>
+    if (loading) return <Loader>loading...</Loader>;
 
-    if (error) return <Error>Some error happen</Error>
+    if (error) return <Error>Some error happen</Error>;
 
     return (
         <Div>
@@ -90,11 +97,19 @@ const List = (props: any) => {
                         value={name}
                     />
                     <Error>
-                    { cryptoName ? `${cryptoName} is not available.` : '' }
-                    {dupCryptoName ? `${dupCryptoName} is already exist!` : ''}
+                        {cryptoName ? `${cryptoName} is not available.` : ""}
+                        {dupCryptoName
+                            ? `${dupCryptoName} is already exist!`
+                            : ""}
                     </Error>
-                    <Button onClick={addCrypto} disabled={!name} label={"Add"} />
-                    <P>Use of this service is subject to terms and conditions.</P>
+                    <Button
+                        onClick={addCrypto}
+                        disabled={!name}
+                        label={"Add"}
+                    />
+                    <P>
+                        Use of this service is subject to terms and conditions.
+                    </P>
                 </Upper>
             </Card>
         </Div>

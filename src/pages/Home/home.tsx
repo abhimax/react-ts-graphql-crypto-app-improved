@@ -4,14 +4,14 @@ import { Form } from "./components/Form";
 import "../../components/global.css";
 import { TopWrapper, MainTitle, SubTitle, TitleWrapper } from "./home.styled";
 import { Footer } from "./components/Footer";
-import { CList } from "../../interface";
+import { CryptoItem } from "../../model/CriptoItem";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const Home = () => {
-    const [data, setData] = useLocalStorage<CList[]>("data");
+    const [data, setData] = useLocalStorage<CryptoItem[]>("data");
 
     const handleDelete = (id: number | string) => {
-        let afterDelete = data.filter((item: CList) => item.id !== id);
+        let afterDelete = data.filter((item: CryptoItem) => item.id !== id);
         setData(afterDelete);
     };
     return (

@@ -3,7 +3,7 @@ import { Button } from "../../../../components/button";
 import { Input } from "../../../../components/input";
 import { useEffect, useState } from "react";
 import { useLazyQuery, gql } from "@apollo/client";
-import { CList } from "../../../../interface";
+import { CryptoItem } from "../../../../model/CriptoItem";
 import { CryptoExists, CryptoNotFound } from "../../../../utils/message";
 
 interface IState {
@@ -13,7 +13,7 @@ interface IState {
 }
 
 interface Props {
-    setData: React.Dispatch<React.SetStateAction<CList[]>>;
+    setData: React.Dispatch<React.SetStateAction<CryptoItem[]>>;
 }
 const CRYPTO_QUERY = gql`
     query price($name: String) {
@@ -42,7 +42,7 @@ const List = (props: Props) => {
     useEffect(() => {
         if (data) {
             const localStorageData = localStorage.getItem("data");
-            const obj: CList = { id: "", name: "", price: "" };
+            const obj: CryptoItem = { id: "", name: "", price: "" };
 
             if (data?.markets?.[0]?.ticker?.lastPrice) {
                 obj.id = data.markets[0].marketSymbol;
@@ -53,7 +53,7 @@ const List = (props: Props) => {
                     ) ?? "-";
                 if (localStorageData) {
                     const crypto = JSON.parse(localStorageData);
-                    if (crypto.some((obj: CList) => obj.name === state.name)) {
+                    if (crypto.some((obj: CryptoItem) => obj.name === state.name)) {
                         setState((curr) => ({
                             ...state,
                             dupCryptoName: curr.name,

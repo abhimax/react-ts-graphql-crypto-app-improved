@@ -1,4 +1,4 @@
-import { CList } from "../../interface";
+import { CryptoItem } from "../../model/CriptoItem";
 import {
     First,
     InnerList,
@@ -11,7 +11,7 @@ import {
 
 interface Props {
     id: string;
-    item: CList;
+    item: CryptoItem;
     handleDelete: (id: string) => void;
 }
 

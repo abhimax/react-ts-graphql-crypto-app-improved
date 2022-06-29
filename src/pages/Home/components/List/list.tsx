@@ -1,15 +1,15 @@
-import { CList } from "../../../../interface";
+import { CryptoItem } from "../../../../model/CriptoItem";
 import { ListItem } from "./list.styled";
 import { Item } from "../../../../components/item";
 interface Props {
-    data: CList[];
-    setData: React.Dispatch<React.SetStateAction<CList[]>>;
+    data: CryptoItem[];
+    setData: React.Dispatch<React.SetStateAction<CryptoItem[]>>;
     handleDelete: (id: string) => void;
 }
 const List = (props: Props) => {
     return (
         <ListItem>
-            {props.data.map((item: CList) => {
+            {props.data.map((item: CryptoItem) => {
                 return (
                     <Item
                         key={item.id}

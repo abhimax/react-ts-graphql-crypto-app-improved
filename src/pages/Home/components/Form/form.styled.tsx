@@ -3,7 +3,7 @@ const Div = styled.div`
     flex: 1;
     display: flex;
     justify-content: flex-end;
-    align-items: cenetr;
+    align-items: center;
     width: 100%;
     height: 100%;
     @media screen and (min-width: 0px) and (max-width: 600px) {

@@ -1,7 +1,7 @@
-export const cryptoNotFound = (name: string) => {
+export const CryptoNotFound = (name: string) => {
     return name ? `${name} is not available.` : "";
 }
 
-export const cryptoExsits = (name: string) => {
+export const CryptoExists = (name: string) => {
     return name ? `${name} is already exist!` : "";
 }

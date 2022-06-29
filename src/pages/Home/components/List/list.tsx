@@ -1,4 +1,4 @@
-import { CList } from "../../../../inteface";
+import { CList } from "../../../../interface";
 import { ListItem } from "./list.styled";
 import { Item } from "../../../../components/item";
 interface Props {

@@ -1,4 +1,4 @@
-import { CList } from "../../inteface";
+import { CList } from "../../interface";
 import {
     First,
     InnerList,

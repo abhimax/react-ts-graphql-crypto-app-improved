@@ -5,7 +5,7 @@ import { Form } from "./components/Form";
 import "../../components/global.css";
 import { TopWrapper, MainTitle, SubTitle, TitleWrapper } from "./home.styled";
 import { Footer } from "./components/Footer";
-import { CList } from "../../inteface";
+import { CList } from "../../interface";
 
 const Home = () => {
     const [data, setData] = useState<CList[]>([]);

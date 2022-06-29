@@ -3,8 +3,8 @@ import { Button } from "../../../../components/button";
 import { Input } from "../../../../components/input";
 import { useEffect, useState } from "react";
 import { useLazyQuery, gql } from "@apollo/client";
-import { CList } from "../../../../inteface";
-import { cryptoExsits, cryptoNotFound } from '../../../../utils/message';
+import { CList } from "../../../../interface";
+import { CryptoExists, CryptoNotFound } from '../../../../utils/message';
 
 interface IState {
     name: string;
@@ -99,8 +99,8 @@ const List = (props: Props) => {
                         value={name}
                     />
                     <Error>
-                        {cryptoNotFound(cryptoName)}
-                        {cryptoExsits(dupCryptoName)}
+                        {CryptoNotFound(cryptoName)}
+                        {CryptoExists(dupCryptoName)}
                     </Error>
                     <Button
                         onClick={addCrypto}

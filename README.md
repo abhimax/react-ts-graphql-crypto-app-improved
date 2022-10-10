@@ -1,3 +1,22 @@
+#  Crypto App
+
+## Tech Stack
++ React with Type Script
++ Apollo Graphql Client
++ styled-components
+
+## Crypto App features.
++ Add crypto currencies in to the cart
++ delete added currencies from the cart
++ Avoid adding duplicated items to the cart
+
+
+## Home Screen
+![EXPENSETRACKER!](readme-res/crypto-app-screen-1.png)
+
+## Added items
+![EXPENSETRACKER2!](readme-res/crypto-app-screen-2.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
